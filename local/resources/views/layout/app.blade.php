@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" type="image/png" href="{{ asset('asset/img/ic/favicon.png') }}">
     <link rel="icon" type="image/png" href="{{ asset('asset/img/ic/favicon@2x.png') }}">
-    <title>ANICHO</title>
+    <title>Equipment</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
@@ -177,6 +177,27 @@
         <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
+
+    <div id="list_modal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="{{ url()->current() }}/savemodal" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="list_modal_title"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="list_modal_detail"></div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-dark">บันทึก</button>
+                        <button type="button" class="btn btn-dark" data-dismiss="modal">ปิด</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 <!-- jQuery -->
 <script type="text/javascript" src="{{ asset('asset/plugins/jquery/jquery.min.js') }}"></script>
@@ -283,6 +304,8 @@
         $('.select2').select2({
             width: '100%',
         });
+
+        $('#list_modal').modal('hide');
     });
 </script>
 
@@ -292,19 +315,25 @@
     });
 </script>
 
-<!-- function check Review -->
+<!-- function get modal -->
 <script type="text/javascript">
-    function checkReview(id) {
-        let review = $('#review' + id);
-        if (review.val() > 10) {
-            review.val(10)
-            swal.fire({
-                title: 'เลือกได้มากสุดแค่ 10 คะแนน!',
-                icon: "warning",
-                showCloseButton: true,
-                timer: 2000
-            });
-        }
+    function getModal(url_modal) {
+        $.ajax({
+            url: url_modal,
+            type: "GET",
+            dataType: 'text',
+            async: true,
+            success: function(data) {
+                let object = JSON.parse(data, true);
+                console.log(object);
+                $("#list_modal").modal('show');
+                $("#list_modal_title").text(object.title);
+                $("#list_modal_detail").html(object.detail);
+            },
+            error: function(data) {
+                alert('Error');
+            }
+        });
     }
 </script>
 

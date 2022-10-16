@@ -9,30 +9,24 @@
     </ul>
 
     <ul class="navbar-nav ml-auto">
-        @guest
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('login') }}">Login</a>
-            </li>
-        @else
-            <li class="px-1 dropdown">
-                <button class="btn-c member ml-1 dropdown-toggle" type="button" id="i_member" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false" data-offset="0,7" title="Username">
-                    <span class="overflow-hidden">
-                        <x-img-view-list path="profile/" image="{{ Auth::user()->image }}"
-                            class="img-responsive img-rounded" alt="User picture"></x-img-view-list>
-                    </span>
-                </button>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="i_member">
-                    <h6 class="dropdown-header">{{ Auth::user()->name }} </h6>
-                    <div class="dropdown-divider"></div>
+        <li class="px-1 dropdown">
+            <button class="btn-c member ml-1 dropdown-toggle" type="button" id="i_member" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" data-offset="0,7" title="Username">
+                <span class="overflow-hidden">
+                    <x-img-view-list path="profile/" image="{{ Auth::guard('member')->user()->image }}"
+                        class="img-responsive img-rounded" alt="User picture">
+                    </x-img-view-list>
+                </span>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="i_member">
+                <h6 class="dropdown-header">{{ Auth::guard('member')->user()->m_name }} [{{ Auth::guard('member')->user()->m_username }}]</h6>
 
-                    <a class="dropdown-item" href="{{ route('profile.edit', Auth::user()->id) }}">
-                        <i class="fa fa-user"></i> โปรไฟล์</a>
+                <a class="dropdown-item" href="{{ route('profile.edit', Auth::guard('member')->user()->id) }}">
+                    <i class="fa fa-user"></i> โปรไฟล์</a>
 
-                    <a class="dropdown-item" href="{{ url('logout') }}">
-                        <i class="fa fa-power-off m-r-5 m-l-5"></i> ออกจากระบบ</a>
-                </div>
-            </li>
-        @endguest
+                <a class="dropdown-item" href="{{ url('logout') }}">
+                    <i class="fa fa-power-off m-r-5 m-l-5"></i> ออกจากระบบ</a>
+            </div>
+        </li>
     </ul>
 </nav>
