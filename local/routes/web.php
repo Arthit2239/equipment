@@ -56,3 +56,4 @@ Route::get('/oder/{id}/copy', [OderController::class,'copy'])->name('oder.copy')
 Route::post('oder/updatearray',  [OderController::class,'updatearray'])->name('oder.updatearray');
 Route::get('oder/{id}/modal',  [OderController::class,'getmodal'])->name('oder.modal');
 Route::post('oder/savemodal',  [OderController::class,'savemodal'])->name('oder.savemodal');
+

@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use App\Models\Member;
-use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -17,8 +16,6 @@ use App\Util\Helper;
 
 class RegisterController extends Controller
 {
-    use RegistersUsers;
-
     protected $redirectTo = RouteServiceProvider::HOME;
 
     public function __construct()
