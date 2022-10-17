@@ -73,11 +73,6 @@
                 <div class="mb-4">
                     <button class="btn btn-block btn-primary my-4" type="submit"> ลงชื่อเข้าใช้</button>
                 </div>
-
-                <div class="mb-4">
-                    <a href="{{ url('/') }}"><button class="btn btn-block btn-primary my-4" type="button">
-                            ย้อนกลับ</button></a>
-                </div>
             </form>
         </div>
     </main>
