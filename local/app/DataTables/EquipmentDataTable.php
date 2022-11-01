@@ -62,32 +62,41 @@ class EquipmentDataTable extends DataTable
                 return View::make("components.input-text", $result)->render();
             })
             ->editColumn('quantity', function ($data) {
-                $result["type"] = 'number';
-                $result["class"] = 'form-control edit';
-                $result["name"] = 'quantity[]';
-                $result["id"] = 'quantity';
-                $result["value"] = $data->quantity;
-                $result["readonly"] = 'readonly';
-                return View::make("components.input-text", $result)->render();
+                if ($data->quantity <= 0) {
+                    return '<input type="number" name="quantity[]" id="quantity" class="form-control edit" value="0" readonly>';
+                } else {
+                    $result["type"] = 'number';
+                    $result["class"] = 'form-control edit';
+                    $result["name"] = 'quantity[]';
+                    $result["id"] = 'quantity';
+                    $result["value"] = $data->quantity;
+                    $result["readonly"] = 'readonly';
+                    return View::make("components.input-text", $result)->render();
+                }
             })
             ->addColumn('oder_status', function ($data) {
-                $oder = Oder::where("equ_id", "=", $data->id)->orderBy('id','desc')->first();
+                //$oder = Oder::where("equ_id", "=", $data->id)->orderBy('id', 'desc')->first();
 
-                if (Helper::guard("member", "id") == Helper::CheckValue($oder, 'm_id')) {
-                    switch (Helper::CheckValue($oder, 'oder_status')) {
-                        case 'Y':
-                            return "<p class='text-success'>อนุมัติ</p>";
-                            break;
-                        case 'N':
-                            return "<p class='text-danger'>ไม่อนุมัติ</p>";
-                            break;
-                        case 'W':
-                            return "<p class='text-warning'>รออนุมัติ</p>";
-                            break;
-                    }
+                //if (Helper::guard("member", "id") == Helper::CheckValue($oder, 'm_id')) {
+                if ($data->quantity <= 0) {
+                    return "<p class='text-danger'>ไม่มีอุปกรณ์</p>";
                 } else {
-                    return "<p class='text-primary'>รอเบิก</p>";
+                    return "<p class='text-success'>มีอุปกรณ์</p>";
+                    // switch (Helper::CheckValue($oder, 'oder_status')) {
+                    //     case 'Y':
+                    //         return "<p class='text-success'>อนุมัติ</p>";
+                    //         break;
+                    //     case 'N':
+                    //         return "<p class='text-danger'>ไม่อนุมัติ</p>";
+                    //         break;
+                    //     case 'W':
+                    //         return "<p class='text-warning'>รออนุมัติ</p>";
+                    //         break;
+                    // }
                 }
+                //} else {
+                return "<p class='text-primary'>รอเบิก</p>";
+                //}
             })
             ->editColumn('picture', function ($data) {
                 if (!empty($data->picture)) {
@@ -104,8 +113,10 @@ class EquipmentDataTable extends DataTable
                     $data["url_option"] = route('equipment.copy', $data->id);
                     $data["url_delete"] = "equipment/" . $data->id;
                 } else {
-                    $data["url_text"] = "เบิก";
-                    $data["url_modal"] = route('equipment.modal', $data->id);
+                    if ($data->quantity > 0) {
+                        $data["url_text"] = "เบิก";
+                        $data["url_modal"] = route('equipment.modal', $data->id);
+                    }
                 }
                 return View::make("components.column-action", $data)->render();
             })

@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('content')
-    <x-page-edit title="แก้ไขอนุมัติเบิกอุปกรณ์" url="{{ route('oder.update', $data->id) }}" path="{{ $data->path }}"
+    <x-page-edit title="แก้ไขอุปกรณ์" url="{{ route('oder.update', $data->id) }}" path="{{ $data->path }}"
         image="{{ $data->picture }}" back="{{ route('oder.index') }}" form='
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">รหัสการเบิก</label>

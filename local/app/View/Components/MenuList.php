@@ -16,12 +16,11 @@ class MenuList extends Component
 
     public function render()
     {
-        //dd(Auth::guard('member'));
         if (Helper::guard('member', 'status') == "admin") {
             $data["menu"] = Helper::QueryAllTable('menu', '*', array(['menu_sub', '=', 'N'], ['menu_active', '=', 'Y']), 'menu_sort asc', '', '');
             $data_menu_sub = Helper::QueryAllTable('menu', '*', array(['menu_sub', '=', 'Y'], ['menu_sub_id', '!=', '0'], ['menu_active', '=', 'Y']), 'menu_sort asc', '', '');
         } else {
-            $data["menu"] = Helper::QueryAllTable('menu', '*', array(['menu_sub', '=', 'N'], ['menu_active', '=', 'Y'], ['id', '!=', 3], ['id', '!=', 4]), 'menu_sort asc', '', '');
+            $data["menu"] = Helper::QueryAllTable('menu', '*', array(['menu_sub', '=', 'N'], ['menu_active', '=', 'Y'], ['id', '!=', 4]), 'menu_sort asc', '', '');
             $data_menu_sub = Helper::QueryAllTable('menu', '*', array(['menu_sub', '=', 'Y'], ['menu_sub_id', '!=', '0'], ['menu_active', '=', 'Y']), 'menu_sort asc', '', '');
         }
 

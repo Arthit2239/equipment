@@ -35,7 +35,7 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">จำนวน</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="quantity" id="quantity" value="{{$data->quantity}}">
+                <input type="number" class="form-control" name="quantity" id="quantity" value="{{$data->quantity}}">
             </div>
         </div>'>
     </x-page-edit>

@@ -68,14 +68,30 @@ class OderDataTable extends DataTable
                 return $output;
             })
             ->editColumn('oder_status', function ($data) {
-                $result["class"] = 'form-control edit';
-                $result["name"] = 'oder_status[]';
-                $result["id"] = 'oder_status';
-                $result["option"] = '<option value="Y" ' . ($data->oder_status == "Y" ? "selected" : "") . '>อนุมัติ</option>
-                <option value="N" ' . ($data->oder_status == "N" ? "selected" : "") . '>ไม่อนุมัติ</option>
-                <option value="W" ' . ($data->oder_status == "W" ? "selected" : "") . '>รออนุมัติ</option>';
-                $result["readonly"] = 'readonly';
-                return View::make("components.select-option", $result)->render();
+                if (Helper::guard('member', 'status') == "admin") {
+                    $result["class"] = 'form-control edit';
+                    $result["name"] = 'oder_status[]';
+                    $result["id"] = 'oder_status';
+                    $result["option"] = '<option value="Y" ' . ($data->oder_status == "Y" ? "selected" : "") . '>อนุมัติ</option>
+                    <option value="N" ' . ($data->oder_status == "N" ? "selected" : "") . '>ไม่อนุมัติ</option>
+                    <option value="W" ' . ($data->oder_status == "W" ? "selected" : "") . '>รออนุมัติ</option>';
+                    $result["readonly"] = 'readonly';
+                    $output = View::make("components.select-option", $result)->render();
+                } else {
+                    switch (Helper::CheckValue($data, 'oder_status')) {
+                        case 'Y':
+                            $output = "<p class='text-success'>อนุมัติ</p>";
+                            break;
+                        case 'N':
+                            $output = "<p class='text-danger'>ไม่อนุมัติ</p>";
+                            break;
+                        case 'W':
+                            $output = "<p class='text-warning'>รออนุมัติ</p>";
+                            break;
+                    }
+                }
+
+                return $output;
             })
             ->editColumn('picture', function ($data) {
                 $query = Equipment::find($data->equ_id);
@@ -86,19 +102,25 @@ class OderDataTable extends DataTable
                     return '<i class="fa fa-picture-o" aria-hidden="true"></i>';
                 }
             })
+            ->editColumn('oder_date', function ($data) {
+                return date("d/m/Y H:i:s", strtotime($data->created_at)) . " น.";
+            })
             ->addColumn('action', function ($data) {
                 $data["url_edit"] = route('oder.edit', $data->id);
-                // $data["url_copy"] = "#";
                 $data["url_option"] = route('oder.copy', $data->id);
                 $data["url_delete"] = "oder/" . $data->id;
                 return View::make("components.column-action", $data)->render();
             })
-            ->rawColumns(['id', 'oder_id', 'equ_id', 'm_id', 'oder_total', 'oder_status', 'picture', 'action']);
+            ->rawColumns(['id', 'oder_id', 'equ_id', 'm_id', 'oder_total', 'oder_status', 'oder_date', 'picture', 'action']);
     }
 
     public function query(Request $request)
     {
-        return Oder::selectRaw('*');
+        if (Helper::guard('member', 'status') == "admin") {
+            return Oder::selectRaw('*');
+        } else {
+            return Oder::selectRaw('*')->where("m_id", Helper::guard('member', 'id'));
+        }
     }
 
     public function html()
@@ -117,7 +139,7 @@ class OderDataTable extends DataTable
             ['data' => 'picture', 'className' => 'text-center', 'title' => 'รูป'],
             ['data' => 'oder_total', 'className' => 'text-center', 'title' => 'จำนวน'],
             ['data' => 'm_id', 'className' => 'text-center', 'title' => 'คนที่เบิก'],
-            ['data' => 'oder_date', 'className' => 'text-center', 'title' => 'วันที่'],
+            ['data' => 'oder_date', 'className' => 'text-center', 'title' => 'วันที่-เวลา'],
             ['data' => 'oder_status', 'className' => 'text-center', 'title' => 'สถานะ'],
             ['data' => 'action', 'className' => 'text-center', "width" => 150, 'title' => 'จัดการ'],
         ];

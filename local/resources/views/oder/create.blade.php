@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('content')
-    <x-page-create title="เพิ่มอนุมัติเบิกอุปกรณ์" url="{{ route('oder.store') }}" back="{{ route('oder.index') }}" form='
+    <x-page-create title="เพิ่มอุปกรณ์" url="{{ route('oder.store') }}" back="{{ route('oder.index') }}" form='
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">ไฟล์</label>
         <div class="col-sm-10">
