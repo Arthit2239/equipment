@@ -25,13 +25,13 @@
     <table border="1" width="100%">
         <thead>
             <tr>
-                <th>รหัสการเบิก</th>
-                <th>รูป</th>
-                <th>ชื่ออุปกรณ์</th>
-                <th>จำนวนเบิก</th>
-                <th>คนที่เบิก</th>
-                <th>วันที่-เวลา</th>
-                <th>สถานะ</th>
+                <th align="center">รหัสการเบิก</th>
+                <th align="center">รูป</th>
+                <th align="center">ชื่ออุปกรณ์</th>
+                <th align="center">จำนวนเบิก</th>
+                <th align="center">คนที่เบิก</th>
+                <th align="center">วันที่-เวลา</th>
+                <th align="center">สถานะ</th>
             </tr>
         </thead>
         <tbody>
@@ -54,15 +54,13 @@
             }
             @endphp
             <tr>
-                <td>{{$i}}</td>
-                <td><img src="{{ $file }}" width="50px"></td>
-                <td>{{$equipment->equ_name}}</td>
-                <td>{{$value->oder_total}}</td>
-                <td>{{$user->m_name}} ({{$user->m_username}})</td>
-                <td>{{date("d/m/Y", strtotime($value->oder_date))}}</td>
-                <td>
-                    <p class='text-success'>{{$oder_status}}</p>
-                </td>
+                <td align="center">{{$i}}</td>
+                <td align="center"><img src="{{ $file }}" width="50px"></td>
+                <td align="center">{{$equipment->equ_name}}</td>
+                <td align="center">{{$value->oder_total}}</td>
+                <td align="center">{{$user->m_name}} ({{$user->m_username}})</td>
+                <td align="center">{{date("d/m/Y", strtotime($value->oder_date))}}</td>
+                <td align="center">{{$oder_status}}</td>
             </tr>
             @php $i++; @endphp
             @endforeach

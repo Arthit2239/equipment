@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('content')
-    <x-page-edit title="แก้ไขอุปกรณ์" url="{{ route('equipment.update', $data->equ_id) }}"
+    <x-page-edit title="แก้ไขอุปกรณ์" url="{{ route('equipment.update', $data->id) }}"
         path="{{ $data->path }}" image="{{ $data->picture }}"
         back="{{ route('equipment.index') }}" form='
         <div class="form-group row">
