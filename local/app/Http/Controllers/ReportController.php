@@ -34,7 +34,6 @@ class ReportController extends Controller
 
     public function genpdf(Request $request)
     {
-
         $order = Oder::selectRaw('*');
         if ($request->equ_id) {
             $order = $order->where('equ_id', $request->equ_id);

@@ -34,7 +34,7 @@ class DashboardController extends Controller
             "members" => number_format($members),
             "equipment" => number_format($equipment),
             "oder" => number_format($oder),
-            "report" => number_format(0)
+            "report" => number_format($oder)
         );
 
         $data["dashboard"] = Dashbord::all();
