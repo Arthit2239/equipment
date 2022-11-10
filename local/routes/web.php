@@ -10,6 +10,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\OderController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
@@ -57,9 +58,6 @@ Route::post('oder/updatearray',  [OderController::class,'updatearray'])->name('o
 Route::get('oder/{id}/modal',  [OderController::class,'getmodal'])->name('oder.modal');
 Route::post('oder/savemodal',  [OderController::class,'savemodal'])->name('oder.savemodal');
 
-Route::resource('report', OderController::class);
-Route::get('/report/{id}/copy', [OderController::class,'copy'])->name('report.copy');
-Route::post('report/updatearray',  [OderController::class,'updatearray'])->name('report.updatearray');
-Route::get('report/{id}/modal',  [OderController::class,'getmodal'])->name('report.modal');
-Route::post('report/savemodal',  [OderController::class,'savemodal'])->name('report.savemodal');
-
+Route::resource('report', ReportController::class);
+Route::any('report/genpdf',  [ReportController::class,'genpdf'])->name('report.genpdf');
+Route::post('report/genexcel',  [ReportController::class,'genexcel'])->name('report.genexcel');
