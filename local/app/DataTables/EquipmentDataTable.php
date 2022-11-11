@@ -32,7 +32,7 @@ class EquipmentDataTable extends DataTable
                 $result["name"] = 'id[]';
                 $result["id"] = 'id';
                 $result["value"] = $data->id;
-                return View::make("components.input-text", $result)->render() . $data->id;
+                return View::make("components.input-text", $result)->render() . $data->rownum;
             })
             // ->editColumn('equ_id', function ($data) {
             //     $result["type"] = 'text';
@@ -125,7 +125,8 @@ class EquipmentDataTable extends DataTable
 
     public function query(Request $request)
     {
-        return Equipment::selectRaw('*');
+        DB::statement(DB::raw('set @rownum=0'));
+        return Equipment::selectRaw('*,@rownum  := @rownum  + 1 AS rownum');
     }
 
     public function html()

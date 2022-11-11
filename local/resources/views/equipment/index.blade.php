@@ -18,7 +18,8 @@
                         [10, 25, 50, 100, 500, -1],
                         [10, 25, 50, 100, 500, "All"]
                     ],
-                    ordering: false,
+                    order: [[0, "desc" ]],
+                    ordering: true,
                     ajax: {
                         url: '{{ route("equipment.index") }}',
                         method: 'GET'

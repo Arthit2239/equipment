@@ -13,9 +13,15 @@
             <button class="btn-c member ml-1 dropdown-toggle" type="button" id="i_member" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false" data-offset="0,7" title="Username">
                 <span class="overflow-hidden">
-                    <x-img-view-list path="profile/" image="{{ Auth::guard('member')->user()->image }}"
-                        class="img-responsive img-rounded" alt="User picture">
-                    </x-img-view-list>
+                    @if(!empty(Auth::guard('member')->user()->image))
+                        <x-img-view-list path="profile/" image="{{ Auth::guard('member')->user()->image }}"
+                            class="img-responsive img-rounded" alt="User picture">
+                        </x-img-view-list>
+                    @else
+                        <x-img-view-list path="profile/" image="user_profile_empty.png"
+                            class="img-responsive img-rounded" alt="User picture">
+                        </x-img-view-list>
+                    @endif
                 </span>
             </button>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="i_member">

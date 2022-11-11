@@ -47,7 +47,7 @@ class ReportController extends Controller
             $order = $order->where('oder_date', $request->oder_date);
         }
 
-        $order = $order->get();
+        $order = $order->orderBy('created_at','desc')->get();
         $pdf = PDF::loadView('report.genpdf', ['order' => $order]);
         return $pdf->download('รายงานเบิกอุปกรณ์.pdf');
     }

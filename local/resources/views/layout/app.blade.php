@@ -132,7 +132,7 @@
     .btn-c.member img {
         top: 0;
         left: 0;
-        /* max-width: 100%; */
+        max-width: 100%;
         max-height: 100%;
     }
 

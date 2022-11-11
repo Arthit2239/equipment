@@ -106,13 +106,13 @@ class ProfileController extends Controller
             $array = $_array;
         }
 
-        if (Helper::CheckUpdate('members', 'm_username', $request->input('username')) == "error") {
-            return Redirect::back()->withError('Username ' . $request->input('username') . ' มีผู้ใช้แล้ว กรุณาใช้ Username อื่น!');
-        }
+        // if (Helper::CheckUpdate('members', 'm_username', $request->input('username')) == "error") {
+        //     return Redirect::back()->withError('Username ' . $request->input('username') . ' มีผู้ใช้แล้ว กรุณาใช้ Username อื่น!');
+        // }
 
-        if (Helper::CheckUpdate('members', 'email', $request->input('email')) == "error") {
-            return Redirect::back()->withError('Email ' . $request->input('email') . ' มีผู้ใช้แล้ว กรุณาใช้ Email อื่น!');
-        }
+        // if (Helper::CheckUpdate('members', 'email', $request->input('email')) == "error") {
+        //     return Redirect::back()->withError('Email ' . $request->input('email') . ' มีผู้ใช้แล้ว กรุณาใช้ Email อื่น!');
+        // }
 
         return Helper::Update('members', 'id', $id, $array, "อัพเดตข้อมูลสำเร็จ");
     }

@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('content')
-    <x-page-index title="รายการเบิกอุปกรณ์" edit="show"></x-page-index>
+    <x-page-index title="รายการเบิกอุปกรณ์" edit=""></x-page-index>
 @endsection
 
 @section('script')
@@ -19,9 +19,10 @@
                         [10, 25, 50, 100, 500, -1],
                         [10, 25, 50, 100, 500, "All"]
                     ],
-                    ordering: false,
+                    order: [[6, "desc" ]],
+                    ordering: true,
                     ajax: {
-                        url: '{{ route('oder.index') }}',
+                        url: '{{ route("oder.index") }}',
                         method: 'GET'
                     },
                     columns: [
@@ -62,7 +63,7 @@
                         },
 
                         {
-                            data: 'oder_date',
+                            data: 'created_at',
                             className: 'text-center',
                             title: 'วันที่-เวลา'
                         },
@@ -123,9 +124,10 @@
                         [10, 25, 50, 100, 500, -1],
                         [10, 25, 50, 100, 500, "All"]
                     ],
-                    ordering: false,
+                    order: [[6, "desc" ]],
+                    ordering: true,
                     ajax: {
-                        url: '{{ route('oder.index') }}',
+                        url: '{{ route("oder.index") }}',
                         method: 'GET'
                     },
                     columns: [

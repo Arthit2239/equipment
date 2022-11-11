@@ -59,7 +59,7 @@
                 <td align="center">{{$equipment->equ_name}}</td>
                 <td align="center">{{$value->oder_total}}</td>
                 <td align="center">{{$user->m_name}} ({{$user->m_username}})</td>
-                <td align="center">{{date("d/m/Y", strtotime($value->oder_date))}}</td>
+                <td align="center">{{ date("d/m/Y", strtotime($value->oder_date)) . ' ' . date("H:i:s", strtotime($value->created_at)) . " น." }}</td>
                 <td align="center">{{$oder_status}}</td>
             </tr>
             @php $i++; @endphp

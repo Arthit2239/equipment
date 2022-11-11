@@ -20,14 +20,14 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">ชื่อผู้ใช้เข้าสู่ระบบ</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="username" id="username" value="{{ $data->m_username }}">
+                        <input type="text" class="form-control" name="username" id="username" value="{{ $data->m_username }}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">อีเมล</label>
                     <div class="col-sm-10">
-                        <input type="email" class="form-control" name="email" id="email" value="{{ $data->email }}">
+                        <input type="email" class="form-control" name="email" id="email" value="{{ $data->email }}" readonly>
                     </div>
                 </div>
 

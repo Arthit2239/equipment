@@ -75,14 +75,24 @@ class OderController extends Controller
             $array2 = array();
             $array2["quantity"] = (int)$request->quantity + (int)$request->oder_total;
             Helper::Update('equipment', 'id', $request->equ_id, $array2);
+            //$is_array = $array;
         }
+
+        // if($request->oder_status == "W"){
+        //     $is_array = $array;
+        // }
 
         if ($request->oder_status == "Y") {
+            $quantity = (int)$request->quantity - (int)$request->oder_total;
+
             $array2 = array();
-            $array2["quantity"] = (int)$request->quantity - (int)$request->oder_total;
+            $array2["quantity"] = ($quantity >= 0 ? $quantity : 0);
             Helper::Update('equipment', 'id', $request->equ_id, $array2);
+            $_array = array_merge(["is_order_status" => 'Y']);
+            //$is_array = $_array;
         }
 
+        unset($array["quantity"]);
         return Helper::Update('oder', 'id', $id, $array, 'อัพเดตข้อมูลสำเร็จ');
     }
 
@@ -96,10 +106,13 @@ class OderController extends Controller
                 ]);
 
             if ($request->oder_status[$i] == "Y") {
-                Equipment::where('id',  $request->equ_id[$i])
+                //if (Helper::CheckUpdate('oder', [['oder_id', $request->oder_id],['m_id'=>$request->m_id]]) == "success") {
+                    $quantity = (int)$request->quantity[$i] - (int)$request->oder_total[$i];
+                    Equipment::where('id',  $request->equ_id[$i])
                     ->update([
-                        'quantity' => (int)$request->quantity[$i] - (int)$request->oder_total[$i]
+                        'quantity' => ($quantity >= 0 ? $quantity : 0)
                     ]);
+                //}
             }
 
             if ($request->oder_status[$i] == "N") {

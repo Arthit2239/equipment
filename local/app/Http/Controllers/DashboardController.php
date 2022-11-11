@@ -28,13 +28,13 @@ class DashboardController extends Controller
 
         $members = Helper::QueryCountTable('members');
         $equipment = Helper::QueryCountTable('equipment');
-        $oder = Helper::QueryCountTable('oder', [["m_id", Helper::guard("member", "id")]]);
+        $oder = Helper::QueryCountTable('oder');
 
         $data["count"] = array(
             "members" => number_format($members),
             "equipment" => number_format($equipment),
             "oder" => number_format($oder),
-            "report" => number_format($oder)
+            "report" => 1
         );
 
         $data["dashboard"] = Dashbord::all();

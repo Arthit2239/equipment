@@ -32,7 +32,7 @@ class OderDataTable extends DataTable
                 $result["name"] = 'id[]';
                 $result["id"] = 'id';
                 $result["value"] = $data->id;
-                return View::make("components.input-text", $result)->render() . $data->id;
+                return View::make("components.input-text", $result)->render() . $data->rownum;
             })
             ->editColumn('equ_id', function ($data) {
                 $query = Equipment::where("id", "=", $data->equ_id)->first();
@@ -46,14 +46,22 @@ class OderDataTable extends DataTable
             })
             ->editColumn('m_id', function ($data) {
                 $query = Member::where("id", "=", $data->m_id)->first();
+
+                $result["type"] = 'hidden';
+                $result["name"] = 'm_id[]';
+                $result["id"] = 'm_id';
+                $result["value"] = $data->m_id;
+
                 return $query->m_username;
             })
             ->editColumn('oder_total', function ($data) {
                 $query = Equipment::where("id", "=", $data->equ_id)->first();
                 $result["type"] = 'hidden';
+                //$result["class"] = 'form-control edit';
                 $result["name"] = 'oder_total[]';
                 $result["id"] = 'oder_total';
                 $result["value"] = $data->oder_total;
+                //$result["readonly"] = 'readonly';
 
                 $result2["type"] = 'hidden';
                 $result2["name"] = 'quantity[]';
@@ -68,16 +76,16 @@ class OderDataTable extends DataTable
                 return $output;
             })
             ->editColumn('oder_status', function ($data) {
-                if (Helper::guard('member', 'status') == "admin") {
-                    $result["class"] = 'form-control edit';
-                    $result["name"] = 'oder_status[]';
-                    $result["id"] = 'oder_status';
-                    $result["option"] = '<option value="Y" ' . ($data->oder_status == "Y" ? "selected" : "") . '>อนุมัติ</option>
-                    <option value="N" ' . ($data->oder_status == "N" ? "selected" : "") . '>ไม่อนุมัติ</option>
-                    <option value="W" ' . ($data->oder_status == "W" ? "selected" : "") . '>รออนุมัติ</option>';
-                    $result["readonly"] = 'readonly';
-                    $output = View::make("components.select-option", $result)->render();
-                } else {
+                // if (Helper::guard('member', 'status') == "admin") {
+                //     $result["class"] = 'form-control edit';
+                //     $result["name"] = 'oder_status[]';
+                //     $result["id"] = 'oder_status';
+                //     $result["option"] = '<option value="Y" ' . ($data->oder_status == "Y" ? "selected" : "") . '>อนุมัติ</option>
+                //     <option value="N" ' . ($data->oder_status == "N" ? "selected" : "") . '>ไม่อนุมัติ</option>
+                //     <option value="W" ' . ($data->oder_status == "W" ? "selected" : "") . '>รออนุมัติ</option>';
+                //     $result["readonly"] = 'readonly';
+                //     $output = View::make("components.select-option", $result)->render();
+                // } else {
                     switch (Helper::CheckValue($data, 'oder_status')) {
                         case 'Y':
                             $output = "<p class='text-success'>อนุมัติ</p>";
@@ -89,7 +97,7 @@ class OderDataTable extends DataTable
                             $output = "<p class='text-warning'>รออนุมัติ</p>";
                             break;
                     }
-                }
+                //}
 
                 return $output;
             })
@@ -102,25 +110,33 @@ class OderDataTable extends DataTable
                     return '<i class="fa fa-picture-o" aria-hidden="true"></i>';
                 }
             })
-            ->editColumn('oder_date', function ($data) {
-                return date("d/m/Y H:i:s", strtotime($data->created_at)) . " น.";
+            ->editColumn('created_at', function ($data) {
+                return date("d/m/Y", strtotime($data->oder_date)) . ' ' . date("H:i:s", strtotime($data->created_at)) . " น.";
             })
             ->addColumn('action', function ($data) {
-                $data["url_edit"] = route('oder.edit', $data->id);
-                $data["url_option"] = route('oder.copy', $data->id);
-                $data["url_delete"] = "oder/" . $data->id;
-                return View::make("components.column-action", $data)->render();
+                if($data->oder_status == "Y"){
+                    return "<p class='text-info'>รายการ / อนุมัติแล้ว</p>";
+                }else{
+                    $data["url_edit"] = route('oder.edit', $data->id);
+                    $data["url_option"] = route('oder.copy', $data->id);
+                    $data["url_delete"] = "oder/อนุมัติ" . $data->id;
+                    return View::make("components.column-action", $data)->render();
+                }
             })
             ->rawColumns(['id', 'oder_id', 'equ_id', 'm_id', 'oder_total', 'oder_status', 'oder_date', 'picture', 'action']);
     }
 
     public function query(Request $request)
     {
+        DB::statement(DB::raw('set @rownum=0'));
+        $query = Oder::selectRaw('*,@rownum  := @rownum  + 1 AS rownum');
+
         if (Helper::guard('member', 'status') == "admin") {
-            return Oder::selectRaw('*');
+            $result = $query;
         } else {
-            return Oder::selectRaw('*')->where("m_id", Helper::guard('member', 'id'));
+            $result = $query->where("m_id", Helper::guard('member', 'id'));
         }
+        return $result;
     }
 
     public function html()

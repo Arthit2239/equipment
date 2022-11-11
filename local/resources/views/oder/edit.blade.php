@@ -20,7 +20,7 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">จำนวน</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" name="oder_total" id="oder_total" value="{{ $data->oder_total }}" readonly>
+                    <input type="number" class="form-control" name="oder_total" id="oder_total" value="{{ $data->oder_total }}">
                 </div>
             </div>
 
@@ -48,7 +48,7 @@
                 </select>
                 </div>
             </div>
-            <input type="hidden" class="form-control" name="equ_id" id="equ_id" value="{{ $equ->equ_id }}">
+            <input type="hidden" class="form-control" name="equ_id" id="equ_id" value="{{ $equ->id }}">
             <input type="hidden" class="form-control" name="quantity" id="quantity" value="{{ $equ->quantity }}">
             '>
     </x-page-edit>

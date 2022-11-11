@@ -423,9 +423,15 @@ class Helper
     }
 
     //ฟังก์ชันเช็คข้อมูลเหมือนกันก่อน Update
-    public static function CheckUpdate($table, $field, $data, $message = null)
+    public static function CheckUpdate($table, $field, $data = null, $message = null)
     {
-        $count = Helper::tables($table)::where("id", "!=", Helper::guard("member", 'id'))->where($field, $data)->count();
+        //where("id", "!=", Helper::guard("member", 'id'))->
+        if($data){
+            $count = Helper::tables($table)::where($field, $data)->count();
+        }else{
+            $count = Helper::tables($table)::where($field)->count();
+        }
+        
 
         if ($count > 0) {
             return Helper::messageError($message);
