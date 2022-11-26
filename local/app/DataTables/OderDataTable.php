@@ -101,7 +101,7 @@ class OderDataTable extends DataTable
 
                 return $output;
             })
-            ->editColumn('picture', function ($data) {
+            ->addColumn('picture', function ($data) {
                 $query = Equipment::find($data->equ_id);
                 if (!empty($query->picture)) {
                     $result["file"] = "$query->path$query->picture";

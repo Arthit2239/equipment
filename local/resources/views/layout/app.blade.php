@@ -14,7 +14,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('asset/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="{{ asset('asset/css/ionicons.min.css') }}">
     <!-- Tempusdominus Bbootstrap 4 -->
     <link rel="stylesheet"
         href="{{ asset('asset/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
@@ -29,14 +29,14 @@
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('asset/plugins/summernote/summernote-bs4.css') }}">
     <!-- Google Font: Source Sans Pro -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link href="{{ asset('asset/css/fonts.googleapis.css') }}" rel="stylesheet">
     <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="{{ asset('asset/css/fonts.googleapis.com.nunito.css') }}" rel="stylesheet">
     <!-- Datatable -->
     <link href="{{ asset('asset/datatable/jquery.dataTables.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('asset/datatable/buttons.dataTables.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- Font Awesome 4.7.0 -->
+    {{-- <link rel="stylesheet" href="{{ asset('asset/css/font-awesome.min.css') }}"> --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!--select2 css-->
     <link href="{{ asset('asset/css/select2.min.css') }}" rel="stylesheet" type="text/css">
@@ -219,8 +219,7 @@
 <script type="text/javascript" src="{{ asset('asset/plugins/moment/moment.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('asset/plugins/daterangepicker/daterangepicker.js') }}"></script>
 <!-- Tempusdominus Bootstrap 4 -->
-<script type="text/javascript"
-    src="{{ asset('asset/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('asset/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
 <!-- Summernote -->
 <script type="text/javascript" src="{{ asset('asset/plugins/summernote/summernote-bs4.min.js') }}"></script>
 <!-- overlayScrollbars -->
@@ -241,7 +240,7 @@
 <script type="text/javascript" src="{{ asset('asset/ckeditor/ckeditor.js') }}"></script>
 <!-- sweetalert -->
 {{-- <script type="text/javascript" src="{{ asset('asset/js/sweetalert.min.js') }}"></script> --}}
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript" src="{{ asset('asset/js/sweetalert2@11.js') }}"></script>
 
 <!-- Token -->
 <script type="text/javascript">

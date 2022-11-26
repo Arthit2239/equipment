@@ -6,5 +6,6 @@ $data['tables'] = [
     'dashboard' => App\Models\Dashbord::class,
     'equipment' => App\Models\Equipment::class,
     'oder' => App\Models\Oder::class,
+    'report' => App\Models\Report::class,
 ];
 return $data;

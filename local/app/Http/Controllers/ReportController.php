@@ -48,6 +48,13 @@ class ReportController extends Controller
         }
 
         $order = $order->orderBy('created_at','desc')->get();
+
+        $_array = $request->all();
+        unset($_array["_token"]);
+        unset($_array["update"]);
+        unset($_array["report"]);
+        Helper::Insert('report', $_array);
+
         $pdf = PDF::loadView('report.genpdf', ['order' => $order]);
         return $pdf->download('รายงานเบิกอุปกรณ์.pdf');
     }

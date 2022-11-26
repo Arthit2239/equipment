@@ -5,14 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Util\Helper;
-use App\Models\Anime;
-use App\Models\AnimeSub;
-use App\Models\Female;
-use App\Models\Male;
-use App\Models\Ranking;
 use App\Models\Dashbord;
-use App\Models\Watching;
-
+use App\Models\Report;
 class DashboardController extends Controller
 {
     public function __construct()
@@ -29,12 +23,13 @@ class DashboardController extends Controller
         $members = Helper::QueryCountTable('members');
         $equipment = Helper::QueryCountTable('equipment');
         $oder = Helper::QueryCountTable('oder');
+        $report = Helper::QueryCountTable('report');
 
         $data["count"] = array(
             "members" => number_format($members),
             "equipment" => number_format($equipment),
             "oder" => number_format($oder),
-            "report" => 1
+            "report" => number_format($report)
         );
 
         $data["dashboard"] = Dashbord::all();
